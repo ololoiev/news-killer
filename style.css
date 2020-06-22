@@ -1,0 +1,376 @@
+body {
+	background-color: #f5f5f7;
+	font-family: 'Ubuntu', 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 1.2rem;
+	font-weight: 500;
+	margin: 0;
+}
+
+@media (min-width:1024px) {
+	h1 {
+		font-size: 2rem;
+	}
+
+}
+
+a {
+	background-color: transparent;
+	font-weight: normal;
+	color: #283cdc;
+	letter-spacing: 0.03em;
+	text-decoration: none;
+	vertical-align: baseline;
+}
+
+img {
+	height: 100%;
+	width: 100%;
+}
+
+ul {
+	margin: 1.5rem 0rem;
+	position: relative;
+}
+
+li {
+	list-style: none;
+}
+
+li::before {
+	color: rgba(34, 34, 34, 0.4);
+	content: '—';
+	left: 1rem;
+	position: absolute;
+}
+
+header {
+	
+}
+
+footer {
+	font-size: 0.5rem;
+	padding: 1rem;
+}
+
+main {
+	background-color: #fff;
+}
+
+@media (min-width:480px) {
+	main {
+		border-radius: 1rem;
+	}
+
+}
+
+@media (min-width:1024px) {
+	main {
+		border-radius: 0;
+	}
+}
+
+@media (min-width:1200px) {
+	main {
+		border-radius: 1rem;
+	}
+}
+
+nav {
+	padding: 0.5rem 1rem;
+}
+
+@media (min-width:1024px) {
+	nav {
+		margin-left: 2rem;
+	}
+
+}
+
+nav a {
+	color: #222222;
+}
+
+nav a:hover {
+	color: #283cdc;
+}
+
+.wrap {
+	margin: 0 auto;
+	max-width: 480px;
+}
+
+.header-timer {
+	background-color: white;
+	border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+	color: #333;
+	position: sticky;
+	text-align: center;
+	top: 0;
+	width: 100%;
+	z-index: 2;
+}
+
+.header-timer a {
+	color: inherit;
+}
+
+.header-timer_main {
+	margin: 0;
+	padding: 1rem;
+}
+
+.leave-time {
+	color: #000000
+}
+
+header {
+	align-items: center;
+	background-color: #f5f5f7;
+	display: flex;
+}
+
+.title {
+	border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+	padding: 0.75rem 1rem;
+}
+
+.logo {
+	font-size: 1.6rem;
+	font-weight: bold;
+	padding: 0.5rem 1rem 0.75rem;
+}
+
+.nav__item-active {
+	opacity: 0.4;
+}
+
+.secondary {
+	color: rgba(34, 34, 34, 0.4);
+}
+
+.main__rows {
+	display: flex;
+}
+
+.main__row-content {
+	flex: 0 0 100%;
+	max-width: 100%;
+}
+
+.main__row-add {
+	border-left: 1px solid rgba(34, 34, 34, 0.1);
+	box-sizing: border-box;
+	display: none;
+	padding: 2rem;
+}
+
+.add {
+	border: 2px dashed #000;
+	border-radius: 50%;
+	font-size: 0.8rem;
+	height: 5rem;
+	margin: auto;
+	padding: 3rem;
+	text-transform: uppercase;
+	text-align: center;
+	position: sticky;
+	top: 4rem;
+	width: 5rem;
+}
+
+@media (min-width:480px) {
+	.header-timer {
+		border-radius: 0 0 1rem 1rem;
+	}
+
+}
+
+@media (min-width:1024px) {
+	.wrap {
+		max-width: 1200px;
+	}
+
+	.logo {
+		font-size: 2rem;
+	}
+
+	.main__row-content {
+		flex: 0 0 75%;
+		max-width: 75%;
+	}
+
+	.main__row-add {
+		display: block;
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+
+	.header-timer {
+		border-radius: 0;
+		font-size: 1.2rem;
+	}
+}
+
+@media (min-width:1200px) {
+	.header-timer {
+		border-radius: 0 0 1rem 1rem;
+	}
+}
+
+
+
+/*news page styles*/
+
+
+
+.card {
+	display: flex;
+	padding: 1rem;
+	position: relative;
+}
+
+.card__img-wrap {
+	box-sizing: border-box;
+	height: 56px;
+	min-width: 100px;
+	text-align: left;
+	width: 100px;
+}
+
+.card + .card {
+	border-top: 1px solid rgba(34, 34, 34, 0.1);
+}
+
+.card__info {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	padding-left: 1rem;
+}
+
+.card__title {
+	font-weight: normal;
+	font-size: 1rem;
+	line-height: 1.3;
+	margin: 0;
+}
+
+.card__footer {
+	box-sizing: border-box;
+	font-size: 0.8rem;
+	margin-top: 0.2rem;
+}
+
+.card__footer a {
+	color: inherit;
+	display: inline-block;
+	padding: 0.3rem 0;
+	font-size: inherit;
+	position: relative;
+	z-index: 1;
+}
+
+.card__footer a:hover, .card__info .card__link:hover + .card__title {
+	color: #283cdc;
+}
+
+.card__link {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: 0;
+	color: transparent;
+	z-index: 0;
+}
+
+@media (min-width:1024px) {
+	.card__img-wrap {
+		min-width: 168px;
+		height: 95px;
+		width: 168px;
+	}
+
+	.card__title {
+		font-size: 1.15rem;
+		font-weight: 700;
+	}
+
+}
+
+@media (min-width:1200px) {
+	.card__title {
+		font-size: 1.3rem;
+	}
+
+}
+
+
+
+/* article page styles */
+
+
+
+.article {
+	padding: 1rem;
+}
+
+.image {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.article__meta {
+	color: rgba(34, 34, 34, 0.4);
+	margin-right: 1rem;
+	font-size: 0.8rem;
+	white-space: pre;
+}
+
+.article-meta {
+	margin-bottom: 1rem;
+}
+
+.article h1 {
+	font-size: 1.4rem;
+}
+
+.article p, .article ul {
+	line-height: 1.5;
+	font-size: 1.05rem;
+	font-weight: 300;
+}
+
+@media (min-width:1024px) {
+	.article h1 {
+		font-size: 2rem;
+	}
+
+	.article p, .article ul {
+		font-size: 1.2rem;
+	}
+
+	.article h3 {
+		font-size: 1.55rem;
+	}
+
+	.article-wrap {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	.article__meta {
+		font-size: 1rem;
+	}
+
+	.article {
+		padding-top: 2rem;
+	}
+
+}
