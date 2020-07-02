@@ -78,7 +78,7 @@ do:
                 do:
                 - object_new: content
                 - parse:
-                    attr: src
+                    attr: data-large-image
                 - space_dedupe
                 - trim
                 - object_field_set:
@@ -88,14 +88,14 @@ do:
                     name: content
                     to: post
             - find:
-                path: video > source
-                slice: 1
+                path: div.player
                 do:
                 - object_new: content
                 - parse:
-                    attr: src
+                    attr: data-source
                 - space_dedupe
                 - trim
+                - register_set: <%register%>.mp4
                 - object_field_set:
                     object: content
                     field: video
