@@ -1,0 +1,106 @@
+---
+# НАЧАЛЬНЫЕ УСТАНОВКИ ДИГГЕРА
+config:
+  debug: 0
+  agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0
+  cookies:
+    - domain: .pikabu.ru
+      name: set_autohide_news
+      value: -1
+  #        - domain: .pikabu.ru
+  #          name: cto_bundle
+  #          value: hAlAQl9sTlZPajgyaEd2d1ZoQ3oybUVYJTJGTHBvQlFrdUlqTTNmSFMzeGJFTHpjTHZNandZMmxOeVpuTDZBUmxhNzRNOWNRcnhoTjRIYzNGajNpc3hINmZ0ZlpjM0gxTUxNZ1o5cVNYdnZ6SGcyTFpyNmt6S05WVmpjcG5yd2hWMjRYZDE3UGF4RFh4ZXRSQlEyMGw1NFUlMkI0VnlpZEZ3NlRsZGhxM3NTJTJCSUVtVFNUSjQlM0Q
+  #        - domain: .pikabu.ru
+  #          name: pkbRem
+  #          value: "%7B%22uid%22%3A480048%2C%22username%22%3A%22jatyt%22%2C%22rem%22%3A%220094bcd95cd9718233b0b9f9ac08f064%22%2C%22tries%22%3A0%7D"
+  #        - domain: .pikabu.ru
+  #          name: pkbRemNew
+  #          value: "%7B%22rem%22%3A%220094bcd95cd9718233b0b9f9ac08f064%22%2C%22tries%22%3A0%7D"
+  ssl:
+  validate: "no"
+  normalize_tables: yes
+
+do:
+- walk:
+    to: https://pikabu.ru/best
+    do:
+    - find:
+        path: article.story
+        do:
+        - object_new: post
+        - find:
+            path: a.story__title-link
+            do:
+            - parse:
+                attr: href
+            - space_dedupe
+            - trim
+            - object_field_set:
+                object: post
+                field: url
+        - find:
+            path: a.story__title-link
+            do:
+            - parse
+            - space_dedupe
+            - trim
+            - object_field_set:
+                object: post
+                field: title
+        - find:
+            path: time.story__datetime
+            do:
+            - parse:
+                attr: datetime
+            - space_dedupe
+            - trim
+            - object_field_set:
+                object: post
+                field: time
+        - find:
+            path: div.story-block
+            do:
+            - find:
+                path: p
+                do:
+                - object_new: content
+                - parse
+                - space_dedupe
+                - trim
+                - object_field_set:
+                    object: content
+                    field: text
+                - object_save:
+                    name: content
+                    to: post
+            - find:
+                path: img
+                do:
+                - object_new: content
+                - parse:
+                    attr: src
+                - space_dedupe
+                - trim
+                - object_field_set:
+                    object: content
+                    field: img
+                - object_save:
+                    name: content
+                    to: post
+            - find:
+                path: video > source
+                slice: 1
+                do:
+                - object_new: content
+                - parse:
+                    attr: src
+                - space_dedupe
+                - trim
+                - object_field_set:
+                    object: content
+                    field: video
+                - object_save:
+                    name: content
+                    to: post
+        - object_save:
+            name: post
