@@ -1,0 +1,83 @@
+---
+# НАЧАЛЬНЫЕ УСТАНОВКИ ДИГГЕРА
+config:
+  debug: 0
+  agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0
+  ssl:
+  validate: "no"
+  normalize_tables: yes
+
+do:
+- walk:
+    to: https://habr.com/ru/top/
+    do:
+    - sleep: 3
+    - find:
+        path: h2.post__title
+        do:
+        - find:
+            path: .post__title_link
+            do:
+            - parse:
+                attr: href
+            - link_add:
+                pool: post
+- counter_set:
+    name: post_num
+    value: 0
+
+- walk:
+    to: links
+    pool: post
+    do:
+
+    - sleep: 2
+    - object_new: post
+
+    - find:
+        path: h1.post__title > .post__title-text
+        do:
+        - parse
+        - space_dedupe
+        - trim
+        - object_field_set:
+            object: post
+            field: title
+        - static_get: url
+        - object_field_set:
+            object: post
+            field: url
+    - find:
+        path: .post__time
+        do:
+        - parse:
+            attr: data-time_published
+        - space_dedupe
+        - trim
+        - object_field_set:
+            object: post
+            field: time
+    - find:
+        path: 'div#post-content-body'
+        do:
+        - parse:
+            format: html
+        - object_field_set:
+            object: post
+            field: html_content
+
+    - object_save:
+        name: post
+
+
+    # for counter
+    - find:
+        path: .post__time
+        do:
+        - counter_increment:
+            name: post_num
+        - counter_get: post_num
+        - if:
+            match: 5
+            do:
+            - exit
